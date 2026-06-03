@@ -13,5 +13,3 @@ cdk/node_modules/
 
 # Exception: Commit the State
 !.cli/deployed-state.json
-
-.llm_cache/*

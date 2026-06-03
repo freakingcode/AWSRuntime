@@ -1,3 +1,26 @@
 {
-  "targets": {}
+  "targets": {
+    "default": {
+      "resources": {
+        "runtimes": {
+          "ProcurementAI": {
+            "runtimeId": "InventoryManagementAI_ProcurementAI-EI3zee9TUV",
+            "runtimeArn": "arn:aws:bedrock-agentcore:eu-north-1:435627632308:runtime/InventoryManagementAI_ProcurementAI-EI3zee9TUV",
+            "roleArn": "arn:aws:iam::435627632308:role/AgentCore-InventoryManage-ApplicationAgentProcureme-1FplbRFrpk1x"
+          },
+          "InventoryOrchestrator": {
+            "runtimeId": "InventoryManagementAI_InventoryOrchestrator-aS0z5WEE4J",
+            "runtimeArn": "arn:aws:bedrock-agentcore:eu-north-1:435627632308:runtime/InventoryManagementAI_InventoryOrchestrator-aS0z5WEE4J",
+            "roleArn": "arn:aws:iam::435627632308:role/AgentCore-InventoryManage-ApplicationAgentInventory-nRqeRiUIvbeS"
+          },
+          "InventoryAI": {
+            "runtimeId": "InventoryManagementAI_InventoryAI-fQKKxSGtow",
+            "runtimeArn": "arn:aws:bedrock-agentcore:eu-north-1:435627632308:runtime/InventoryManagementAI_InventoryAI-fQKKxSGtow",
+            "roleArn": "arn:aws:iam::435627632308:role/AgentCore-InventoryManage-ApplicationAgentInventory-qgANXgnQBXJ0"
+          }
+        },
+        "stackName": "AgentCore-InventoryManagementAI-default"
+      }
+    }
+  }
 }

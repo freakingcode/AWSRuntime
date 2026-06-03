@@ -16,6 +16,24 @@
       "runtimeVersion": "PYTHON_3_14",
       "networkMode": "PUBLIC",
       "protocol": "HTTP"
+    },
+    {
+      "name": "InventoryAI",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/InventoryAI/",
+      "runtimeVersion": "PYTHON_3_14",
+      "networkMode": "PUBLIC",
+      "protocol": "HTTP"
+    },
+    {
+      "name": "ProcurementAI",
+      "build": "CodeZip",
+      "entrypoint": "main.py",
+      "codeLocation": "app/ProcurementAI/",
+      "runtimeVersion": "PYTHON_3_14",
+      "networkMode": "PUBLIC",
+      "protocol": "HTTP"
     }
   ],
   "memories": [],
