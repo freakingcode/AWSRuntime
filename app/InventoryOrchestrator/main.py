@@ -15,6 +15,10 @@ PROCUREMENT_RUNTIME_ARN = "arn:aws:bedrock-agentcore:eu-north-1:435627632308:run
 
 runtime_client = boto3.client('bedrock-agentcore', region_name='eu-north-1')
 
+memory-id="inventory-management-memory" # This is the memory where all events will be stored. You can create multiple memories for different use cases and specify which one to use when calling runtime or data client
+actor-id="orchestrator-agent" # This is the unique identifier for the actor (agent) that is generating events. You can use this to filter events in the memory and also to identify which agent generated which event
+session-id="session-1234" # This is the unique identifier for the session. You can use this to group events into sessions. A session can represent a conversation, a task, or any logical grouping of events
+event-id="event-1234" # This is the unique identifier for the event. You can use this to reference specific events in the memory
 
 DEFAULT_SYSTEM_PROMPT = """
 You are an orchestration router.
@@ -84,9 +88,38 @@ async def invoke(payload, context):
     log.info("Invoking Agent.....")
 
     agent = get_or_create_agent()
+    
+    user_message = payload.get("prompt", "")
 
     # Execute and format response
-    stream = agent.stream_async(payload.get("prompt"))
+
+    response = runtime_client.apply_guardrail(
+        guardrailIdentifier="qy64xt8s544i",
+        guardrailVersion="1",
+        source="INPUT",
+        content=[
+            {
+                "text": {
+                    "text": user_message
+                }
+            }
+        ]
+    )
+
+    if response["action"] == "GUARDRAIL_INTERVENED":
+        yield "Request blocked by guardrail."
+        return
+
+    response = runtime_client.get_event(
+        memoryId=memory-id,
+        actorId=actor-id,
+        sessionId=session-id,
+        eventId=event-id
+    )
+
+    event=response['event']
+
+    stream = agent.stream_async(payload.get("prompt")+event)
 
     async for event in stream:
         # Handle Text parts of the response
